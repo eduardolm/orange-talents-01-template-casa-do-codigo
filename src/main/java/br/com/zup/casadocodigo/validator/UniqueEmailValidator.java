@@ -13,8 +13,11 @@ import java.util.Optional;
 @Component
 public class UniqueEmailValidator implements Validator {
 
-    @Autowired
     private AuthorRepository authorRepository;
+
+    public UniqueEmailValidator(AuthorRepository authorRepository) {
+        this.authorRepository = authorRepository;
+    }
 
     @Override
     public boolean supports(Class<?> aClass) {
