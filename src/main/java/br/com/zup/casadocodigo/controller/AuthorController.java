@@ -32,6 +32,6 @@ public class AuthorController {
         if (!repository.existsAuthorByEmail(authorDto.toAuthor().getEmail())) {
             return ResponseEntity.ok().body(new AuthorDto(repository.save(authorDto.toAuthor())));
         }
-        return ResponseEntity.unprocessableEntity().build();
+        return ResponseEntity.badRequest().build();
     }
 }

@@ -1,6 +1,7 @@
 package br.com.zup.casadocodigo.dto;
 
 import br.com.zup.casadocodigo.model.Author;
+import br.com.zup.casadocodigo.validator.UniqueValue;
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
@@ -13,6 +14,7 @@ public class AuthorDto {
     @Size(min = 3, max = 50)
     private String name;
 
+    @UniqueValue(domainClass = Author.class, fieldName = "email", message = "E-mail já cadastrado em nosso sistema.")
     @NotBlank(message = "O campo e-mail é obrigatório.")
     @Size(min = 11, max = 50)
     @Email
