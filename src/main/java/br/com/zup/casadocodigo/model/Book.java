@@ -1,10 +1,6 @@
 package br.com.zup.casadocodigo.model;
 
-import br.com.zup.casadocodigo.dto.CategoryDto;
-import br.com.zup.casadocodigo.validator.UniqueValue;
-
 import javax.persistence.*;
-import javax.validation.constraints.NotBlank;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 
@@ -29,7 +25,7 @@ public class Book {
     private BigDecimal price;
 
     @Column(nullable = false)
-    private Integer numberOfPages;
+    private Integer pages;
 
     @Column(nullable = false)
     private String isbn;
@@ -37,17 +33,17 @@ public class Book {
     @Column(nullable = false)
     private LocalDate toBePublishedAt;
 
-    @Column(nullable = false)
-    private Category category;
-
-    @Column(nullable = false)
+    @ManyToOne
     private Author author;
+
+    @ManyToOne
+    private Category category;
 
     public Book(String title,
                 String abstractText,
                 String summary,
                 BigDecimal price,
-                Integer numberOfPages,
+                Integer pages,
                 String isbn,
                 LocalDate toBePublishedAt,
                 Category category,
@@ -57,7 +53,7 @@ public class Book {
         this.abstractText = abstractText;
         this.summary = summary;
         this.price = price;
-        this.numberOfPages = numberOfPages;
+        this.pages = pages;
         this.isbn = isbn;
         this.toBePublishedAt = toBePublishedAt;
         this.category = category;
@@ -86,8 +82,8 @@ public class Book {
         return price;
     }
 
-    public Integer getNumberOfPages() {
-        return numberOfPages;
+    public Integer getPages() {
+        return pages;
     }
 
     public String getIsbn() {

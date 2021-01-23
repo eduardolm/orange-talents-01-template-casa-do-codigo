@@ -1,15 +1,18 @@
 package br.com.zup.casadocodigo.controller;
 
+import br.com.zup.casadocodigo.controller.request.BookRequest;
 import br.com.zup.casadocodigo.dto.BookDto;
+import br.com.zup.casadocodigo.model.Book;
+import br.com.zup.casadocodigo.repository.AuthorRepository;
 import br.com.zup.casadocodigo.repository.BookRepository;
+import br.com.zup.casadocodigo.repository.CategoryRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/api/v1/books")
@@ -18,11 +21,26 @@ public class BookController {
     @Autowired
     private BookRepository repository;
 
+    @Autowired
+    private CategoryRepository categoryRepository;
+
+    @Autowired
+    private AuthorRepository authorRepository;
+
     @PostMapping
-    public ResponseEntity<BookDto> create(@RequestBody @Valid BookDto bookDto) {
-        if (!repository.existsBookByTitle(bookDto.toBook().getTitle())) {
-            return ResponseEntity.ok().body(new BookDto(repository.save(bookDto.toBook())));
+    public ResponseEntity<BookDto> create(@RequestBody @Valid BookRequest bookRequest) {
+        if (!repository.existsBookByTitle(bookRequest.convertBookRequestToBook(
+                categoryRepository, authorRepository).getTitle())) {
+
+            return ResponseEntity.ok().body(new BookDto(repository.save(bookRequest.convertBookRequestToBook(
+                    categoryRepository, authorRepository))));
         }
         return ResponseEntity.badRequest().build();
+    }
+
+    @GetMapping
+    public ResponseEntity<List<BookDto>> findAll() {
+        List<Book> books = repository.findAll();
+        return ResponseEntity.ok(books.stream().map(BookDto::new).collect(Collectors.toList()));
     }
 }
