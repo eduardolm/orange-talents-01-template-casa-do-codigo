@@ -2,7 +2,6 @@ package br.com.zup.casadocodigo.controller;
 
 import br.com.zup.casadocodigo.dto.AuthorDto;
 import br.com.zup.casadocodigo.repository.AuthorRepository;
-import br.com.zup.casadocodigo.validator.UniqueEmailValidator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.WebDataBinder;
@@ -17,14 +16,6 @@ public class AuthorController {
 
     @Autowired
     private AuthorRepository repository;
-
-    @Autowired
-    private UniqueEmailValidator uniqueEmailValidator;
-
-    @InitBinder
-    public void init(WebDataBinder binder) {
-        binder.addValidators(uniqueEmailValidator);
-    }
 
     @PostMapping
     @Transactional

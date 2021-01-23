@@ -25,6 +25,10 @@ public class CategoryDto {
         return name;
     }
 
+    public void setName(String name) {
+        this.name = name;
+    }
+
     public Category toCategory() {
         return new Category(name);
     }

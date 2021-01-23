@@ -45,30 +45,4 @@ public class ValidationErrorHandler {
     private String getErrorMessage(ObjectError error) {
         return messageSource.getMessage(error, LocaleContextHolder.getLocale());
     }
-
-
-//    @ResponseStatus(HttpStatus.BAD_REQUEST)
-//    @org.springframework.web.bind.annotation.ExceptionHandler(MethodArgumentNotValidException.class)
-//    public List<AuthorDtoException> handleMethodArgumentNotValidException(MethodArgumentNotValidException exception) {
-//        List<AuthorDtoException> dto = new ArrayList<>();
-//        List<FieldError> fieldErrors = exception.getBindingResult().getFieldErrors();
-//
-//        fieldErrors.forEach(e -> {
-//            String message = messageSource.getMessage(e, LocaleContextHolder.getLocale());
-//            AuthorDtoException error = new AuthorDtoException(e.getField(), message);
-//            dto.add(error);
-//        });
-//        return dto;
-//    }
-//
-//    @ResponseStatus(HttpStatus.BAD_REQUEST)
-//    @org.springframework.web.bind.annotation.ExceptionHandler(SQLIntegrityConstraintViolationException.class)
-//    public List<SQLExceptionDto> handleSQLIntegrityConstraintViolationException(SQLIntegrityConstraintViolationException exception) {
-//        List<SQLExceptionDto> dto = new ArrayList<>();
-//        String message = messageSource.getMessage((MessageSourceResolvable) exception, LocaleContextHolder.getLocale());
-//        SQLExceptionDto error = new SQLExceptionDto(exception.getCause().toString(), message);
-//        dto.add(error);
-//        return dto;
-//    }
-
 }
