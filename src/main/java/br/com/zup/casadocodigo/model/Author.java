@@ -72,7 +72,6 @@ public class Author {
         result = prime * result + ((email == null) ? 0 : email.hashCode());
         result = prime * result + ((description == null) ? 0 : description.hashCode());
         return result;
-
     }
 
     @Override
