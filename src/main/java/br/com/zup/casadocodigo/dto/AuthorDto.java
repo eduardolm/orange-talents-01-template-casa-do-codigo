@@ -1,7 +1,6 @@
 package br.com.zup.casadocodigo.dto;
 
 import br.com.zup.casadocodigo.model.Author;
-import br.com.zup.casadocodigo.model.Book;
 import br.com.zup.casadocodigo.validator.UniqueValue;
 
 import javax.validation.constraints.Email;
@@ -28,7 +27,7 @@ public class AuthorDto {
     @Size(min = 5, max = 400)
     private String description;
     private LocalDateTime createdAt;
-    private List<BookDto> books;
+    private List<BookDetailDto> books;
 
     public AuthorDto(@NotBlank(message = "O campo nome é obrigatório.")
                      @Size(min = 3, max = 50) String name,
@@ -38,7 +37,7 @@ public class AuthorDto {
                      @NotBlank(message = "O campo descrição é obrigatório.")
                      @Size(min = 5, max = 400) String description,
                      LocalDateTime createdAt,
-                     List<BookDto> books) {
+                     List<BookDetailDto> books) {
 
         this.name = name;
         this.email = email;
@@ -53,7 +52,7 @@ public class AuthorDto {
         this.description = author.getDescription();
         this.createdAt = author.getCreatedAt();
         this.books = new ArrayList<>();
-        this.books.addAll(author.getBooks().stream().map(BookDto::new).collect(Collectors.toList()));
+        this.books.addAll(author.getBooks().stream().map(BookDetailDto::new).collect(Collectors.toList()));
     }
 
     public String getName() {
@@ -72,7 +71,7 @@ public class AuthorDto {
         return createdAt;
     }
 
-    public List<BookDto> getBooks() {
+    public List<BookDetailDto> getBooks() {
         return books;
     }
 

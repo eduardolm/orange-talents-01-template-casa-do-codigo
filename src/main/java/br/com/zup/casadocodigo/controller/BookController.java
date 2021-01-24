@@ -1,7 +1,9 @@
 package br.com.zup.casadocodigo.controller;
 
 import br.com.zup.casadocodigo.controller.request.BookRequest;
+import br.com.zup.casadocodigo.dto.BookDetailDto;
 import br.com.zup.casadocodigo.dto.BookDto;
+import br.com.zup.casadocodigo.exception.BookConversionException;
 import br.com.zup.casadocodigo.model.Book;
 import br.com.zup.casadocodigo.repository.AuthorRepository;
 import br.com.zup.casadocodigo.repository.BookRepository;
@@ -12,6 +14,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.stream.Collectors;
 
 @RestController
@@ -28,11 +31,11 @@ public class BookController {
     private AuthorRepository authorRepository;
 
     @PostMapping
-    public ResponseEntity<BookDto> create(@RequestBody @Valid BookRequest bookRequest) {
+    public ResponseEntity<BookDetailDto> create(@RequestBody @Valid BookRequest bookRequest) throws BookConversionException {
         if (!repository.existsBookByTitle(bookRequest.convertBookRequestToBook(
                 categoryRepository, authorRepository).getTitle())) {
 
-            return ResponseEntity.ok().body(new BookDto(repository.save(bookRequest.convertBookRequestToBook(
+            return ResponseEntity.ok().body(new BookDetailDto(repository.save(bookRequest.convertBookRequestToBook(
                     categoryRepository, authorRepository))));
         }
         return ResponseEntity.badRequest().build();
@@ -42,5 +45,12 @@ public class BookController {
     public ResponseEntity<List<BookDto>> findAll() {
         List<Book> books = repository.findAll();
         return ResponseEntity.ok(books.stream().map(BookDto::new).collect(Collectors.toList()));
+    }
+
+    @GetMapping("{id}")
+    public ResponseEntity<BookDetailDto> findById(@PathVariable() Long id) {
+        BookDetailDto response = new BookDetailDto(repository.findById(id).orElseThrow(() ->
+                new NoSuchElementException("Livro não encontrado.")));
+        return ResponseEntity.ok(response);
     }
 }

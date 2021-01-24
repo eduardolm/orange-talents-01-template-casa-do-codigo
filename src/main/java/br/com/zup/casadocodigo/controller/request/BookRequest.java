@@ -1,17 +1,18 @@
 package br.com.zup.casadocodigo.controller.request;
 
+import br.com.zup.casadocodigo.exception.BookConversionException;
 import br.com.zup.casadocodigo.model.Author;
 import br.com.zup.casadocodigo.model.Book;
 import br.com.zup.casadocodigo.model.Category;
 import br.com.zup.casadocodigo.repository.AuthorRepository;
 import br.com.zup.casadocodigo.repository.CategoryRepository;
 import br.com.zup.casadocodigo.validator.UniqueValue;
-import org.springframework.web.bind.MethodArgumentNotValidException;
 
 import javax.validation.constraints.*;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.NoSuchElementException;
+import java.util.Optional;
 
 public class BookRequest {
 
@@ -72,11 +73,17 @@ public class BookRequest {
         this.authorName = authorName;
     }
 
-    public Book convertBookRequestToBook(CategoryRepository categoryRepository, AuthorRepository authorRepository) throws NoSuchElementException {
-        Author author = authorRepository.findAuthorByName(authorName).orElseThrow(() -> new NoSuchElementException("Autor não encontrado."));
-        Category category = categoryRepository.findCategoryByName(categoryName).orElseThrow(() -> new NoSuchElementException("Categoria não encontrada."));
+    public Book convertBookRequestToBook(CategoryRepository categoryRepository, AuthorRepository authorRepository) throws NoSuchElementException, BookConversionException {
 
-        return new Book(title, abstractText, summary, price, pages, isbn, toBePublishedAt, category, author);
+        Optional<Author> author = authorRepository.findAuthorByName(authorName);
+        Optional<Category> category = categoryRepository.findCategoryByName(categoryName);
+
+        if (author.isPresent() && category.isPresent()) {
+            return new Book(title, abstractText, summary, price, pages, isbn, toBePublishedAt, category.get(), author.get());
+        }
+        else {
+            throw new BookConversionException(author, category);
+        }
 
     }
 }
