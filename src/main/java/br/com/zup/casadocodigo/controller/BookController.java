@@ -1,6 +1,6 @@
 package br.com.zup.casadocodigo.controller;
 
-import br.com.zup.casadocodigo.controller.request.BookRequest;
+import br.com.zup.casadocodigo.controller.request.BookRequestDto;
 import br.com.zup.casadocodigo.dto.BookDetailDto;
 import br.com.zup.casadocodigo.dto.BookDto;
 import br.com.zup.casadocodigo.exception.BookConversionException;
@@ -31,11 +31,11 @@ public class BookController {
     private AuthorRepository authorRepository;
 
     @PostMapping
-    public ResponseEntity<BookDetailDto> create(@RequestBody @Valid BookRequest bookRequest) throws BookConversionException {
-        if (!repository.existsBookByTitle(bookRequest.convertBookRequestToBook(
+    public ResponseEntity<BookDetailDto> create(@RequestBody @Valid BookRequestDto bookRequestDto) throws BookConversionException {
+        if (!repository.existsBookByTitle(bookRequestDto.convertBookRequestToBook(
                 categoryRepository, authorRepository).getTitle())) {
 
-            return ResponseEntity.ok().body(new BookDetailDto(repository.save(bookRequest.convertBookRequestToBook(
+            return ResponseEntity.ok().body(new BookDetailDto(repository.save(bookRequestDto.convertBookRequestToBook(
                     categoryRepository, authorRepository))));
         }
         return ResponseEntity.badRequest().build();
