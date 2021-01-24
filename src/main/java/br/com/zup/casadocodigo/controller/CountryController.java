@@ -1,9 +1,9 @@
 package br.com.zup.casadocodigo.controller;
 
 import br.com.zup.casadocodigo.controller.request.CountryRequestDto;
+import br.com.zup.casadocodigo.dto.CountryDetailDto;
 import br.com.zup.casadocodigo.dto.CountryDto;
 import br.com.zup.casadocodigo.repository.CountryRepository;
-import org.apache.coyote.Response;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -30,8 +30,8 @@ public class CountryController {
     }
 
     @GetMapping("{id}")
-    public ResponseEntity<CountryDto> findById(@PathVariable() Long id) {
-        CountryDto response = new CountryDto(countryRepository.findById(id).orElseThrow(() ->
+    public ResponseEntity<CountryDetailDto> findById(@PathVariable() Long id) {
+        CountryDetailDto response = new CountryDetailDto(countryRepository.findById(id).orElseThrow(() ->
                 new NoSuchElementException("País não encontrado.")));
         return ResponseEntity.ok(response);
     }

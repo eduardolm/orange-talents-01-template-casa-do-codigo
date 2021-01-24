@@ -10,12 +10,6 @@ import java.time.LocalDate;
 
 public class BookDetailDto {
 
-    @Autowired
-    private CategoryRepository categoryRepository;
-
-    @Autowired
-    private AuthorRepository authorRepository;
-
     private Long id;
     private String title;
     private String abstractText;
