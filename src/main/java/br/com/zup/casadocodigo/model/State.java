@@ -17,6 +17,9 @@ public class State {
     @ManyToOne
     private Country country;
 
+    @OneToOne
+    private Customer customer;
+
     public State(String name, Country country) {
         this.name = name;
         this.country = country;
@@ -36,6 +39,10 @@ public class State {
 
     public Country getCountry() {
         return country;
+    }
+
+    public Customer getCustomer() {
+        return customer;
     }
 
     @Override
@@ -66,6 +73,6 @@ public class State {
 
     @Override
     public String toString() {
-        return "Estado [Nome: " + name + ", idPaís: " + country.getId() + "]";
+        return "Estado [Id: " + id + ",Nome: " + name + ", País: " + country.getName() + "]";
     }
 }

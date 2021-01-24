@@ -68,4 +68,23 @@ public class ElementNotFoundErrorHandler {
         });
         return stateConversionErrors;
     }
+
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    @ExceptionHandler(CustomerConversionException.class)
+    public ValidationErrorsOutputDto handleCustomerConversionException(CustomerConversionException exception) {
+
+        List<FieldErrorOutputDto> fieldErrors = exception.getErrors();
+
+        return buildCustomerConversionException(fieldErrors);
+    }
+
+    private ValidationErrorsOutputDto buildCustomerConversionException( List<FieldErrorOutputDto> fieldErrors) {
+        ValidationErrorsOutputDto customerConversionErrors = new ValidationErrorsOutputDto();
+
+        fieldErrors.forEach(error -> {
+            String errorMessage = error.getMessage();
+            customerConversionErrors.addFieldError(error.getField(), errorMessage);
+        });
+        return customerConversionErrors;
+    }
 }
