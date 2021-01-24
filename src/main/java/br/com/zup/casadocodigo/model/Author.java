@@ -4,8 +4,11 @@ import br.com.zup.casadocodigo.dto.AuthorDto;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 import java.util.StringJoiner;
+import java.util.stream.Collectors;
 
 @Entity
 @Table(name = "autores")
@@ -25,6 +28,10 @@ public class Author {
     private String description;
 
     private final LocalDateTime createdAt = LocalDateTime.now();
+
+    @OneToMany(mappedBy = "author")
+    private List<Book> books = new ArrayList<>();
+
 
     public Author(String name, String email, String description) {
         this.name = name;
@@ -54,6 +61,10 @@ public class Author {
         return createdAt;
     }
 
+    public List<Book> getBooks() {
+        return books;
+    }
+
     @Override
     public String toString() {
         return new StringJoiner(", ", Author.class.getSimpleName() + "[", "]")
@@ -61,6 +72,7 @@ public class Author {
                 .add("E-mail: '" + email + "'")
                 .add("Descrição: '" + description + "'")
                 .add("CriadoEm: " + createdAt)
+                .add("Livros: " + books)
                 .toString();
     }
 
@@ -72,7 +84,6 @@ public class Author {
         result = prime * result + ((email == null) ? 0 : email.hashCode());
         result = prime * result + ((description == null) ? 0 : description.hashCode());
         return result;
-
     }
 
     @Override
@@ -87,9 +98,5 @@ public class Author {
         return (Objects.equals(name, other.name))
                 && (Objects.equals(email, other.email))
                 && (Objects.equals(description, other.description));
-    }
-
-    public AuthorDto toAuthorDto() {
-        return new AuthorDto(name, email, description, createdAt);
     }
 }

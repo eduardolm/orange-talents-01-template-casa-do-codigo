@@ -17,7 +17,7 @@ import static java.lang.annotation.ElementType.FIELD;
 @Retention(RetentionPolicy.RUNTIME)
 public @interface UniqueValue {
 
-    String message() default "{br.com.zup.beanvalidation.uniquevalue}";
+    String message() default "Informed value already exists on our database.";
     Class<?>[] groups() default { };
     Class<? extends Payload>[] payload() default { };
     String fieldName();
