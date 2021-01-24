@@ -14,7 +14,7 @@ import java.time.LocalDate;
 import java.util.NoSuchElementException;
 import java.util.Optional;
 
-public class BookRequest {
+public class BookRequestDto {
 
     @NotBlank(message = "Título é obrigatório.")
     @UniqueValue(domainClass = Book.class, fieldName = "title", message = "O título deve ser único.")
@@ -30,7 +30,7 @@ public class BookRequest {
     private String summary;
 
     @NotNull(message = "O preço é obrigatório.")
-    @DecimalMin(value = "20.0", inclusive = true, message = "Preço mínimo: R$20.00.")
+    @DecimalMin(value = "20.0", message = "Preço mínimo: R$20.00.")
     private BigDecimal price;
 
     @NotNull(message = "Número de páginas é obrigatório.")
@@ -50,17 +50,17 @@ public class BookRequest {
     @NotBlank(message = "Autor é obrigatório.")
     private String authorName;
 
-    public BookRequest(@NotBlank(message = "Título é obrigatório.") @Size(min = 3, max = 50) String title,
-                   @NotBlank(message = "Resumo é obrigatório.") @Size(min = 3, max = 500) String abstractText,
-                   @NotBlank(message = "Título é obrigatório.") @Size(min = 3) String summary,
-                   @NotNull(message = "O preço é obrigatório.")
-                   @DecimalMin(value = "20.0", inclusive = true, message = "Preço mínimo: R$20.00.") BigDecimal price,
-                   @NotNull(message = "Número de páginas é obrigatório.")
+    public BookRequestDto(@NotBlank(message = "Título é obrigatório.") @Size(min = 3, max = 50) String title,
+                          @NotBlank(message = "Resumo é obrigatório.") @Size(min = 3, max = 500) String abstractText,
+                          @NotBlank(message = "Título é obrigatório.") @Size(min = 3) String summary,
+                          @NotNull(message = "O preço é obrigatório.")
+                   @DecimalMin(value = "20.0", message = "Preço mínimo: R$20.00.") BigDecimal price,
+                          @NotNull(message = "Número de páginas é obrigatório.")
                    @Min(value = 100, message = "Número de páginas deve ser maior ou igual a 100") Integer pages,
-                   @NotBlank(message = "ISBN é obrigatório.") String isbn,
-                   @Future(message = "Data de publicação deve ser posterior ao dia atual.") LocalDate toBePublishedAt,
-                   @NotBlank(message = "Categoria é obrigatória.") String categoryName,
-                   @NotBlank(message = "Autor é obrigatório.") String authorName) {
+                          @NotBlank(message = "ISBN é obrigatório.") String isbn,
+                          @Future(message = "Data de publicação deve ser posterior ao dia atual.") LocalDate toBePublishedAt,
+                          @NotBlank(message = "Categoria é obrigatória.") String categoryName,
+                          @NotBlank(message = "Autor é obrigatório.") String authorName) {
 
         this.title = title;
         this.abstractText = abstractText;
