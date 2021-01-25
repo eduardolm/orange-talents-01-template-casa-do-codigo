@@ -22,10 +22,11 @@ public class CountryDetailDtoTest {
     @Test
     public void testConstructor2() {
         // Arrange and Act
-        CountryDetailDto actualCountryDetailDto = new CountryDetailDto(new Country(""));
+        CountryDetailDto actualCountryDetailDto = new CountryDetailDto(
+                new Country("br.com.zup.casadocodigo.model.Country"));
 
         // Assert
-        assertEquals("", actualCountryDetailDto.getName());
+        assertEquals("br.com.zup.casadocodigo.model.Country", actualCountryDetailDto.getName());
         assertNull(actualCountryDetailDto.getId());
         assertTrue(actualCountryDetailDto.getStates().isEmpty());
     }
