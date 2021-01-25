@@ -6,8 +6,9 @@ import br.com.zup.casadocodigo.model.Customer;
 import br.com.zup.casadocodigo.model.State;
 import br.com.zup.casadocodigo.repository.CountryRepository;
 import br.com.zup.casadocodigo.repository.StateRepository;
+import br.com.zup.casadocodigo.validator.CEP;
+import br.com.zup.casadocodigo.validator.CPFeCNPJ;
 import br.com.zup.casadocodigo.validator.UniqueValue;
-import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
@@ -36,6 +37,7 @@ public class CustomerRequestDto {
     @NotBlank(message = "O documento é obrigatório.")
     @Size(min = 11, max = 14, message = "O documento deve ter 11 caracteres para CPF e 14 caracteres para CNPJ.")
     @UniqueValue(domainClass = Customer.class, fieldName = "document", message = "Documento já cadastrado.")
+    @CPFeCNPJ(message = "CPF/CNPJ inválido.")
     private String document;
 
     @NotBlank(message = "O endereço é obrigatório.")
@@ -57,6 +59,7 @@ public class CustomerRequestDto {
     private String phone;
 
     @NotBlank(message = "É obrigatório informar o CEP.")
+    @CEP(message = "CEP inválido.")
     private String zip;
 
     public CustomerRequestDto() {

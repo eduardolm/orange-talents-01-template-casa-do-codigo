@@ -1,5 +1,6 @@
-package br.com.zup.casadocodigo.controller.request;
+package br.com.zup.casadocodigo.controller;
 
+import br.com.zup.casadocodigo.controller.request.CustomerRequestDto;
 import br.com.zup.casadocodigo.dto.CustomerDetailDto;
 import br.com.zup.casadocodigo.dto.CustomerDto;
 import br.com.zup.casadocodigo.exception.CustomerConversionException;
