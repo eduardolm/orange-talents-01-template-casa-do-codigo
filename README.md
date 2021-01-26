@@ -1,3 +1,6 @@
-# Por favor faça um Fork desse projeto!
+# Casa do Código - API
 
-## Está em dúvida de como fazer um Fork? Não tem problema! [Aqui tem uma explicação do que entendemos que você deve considerar!](https://docs.github.com/en/github/getting-started-with-github/fork-a-repo)
+## Objetivos
+Criar o backend para a plataforma da Casa do Código.
+A API deve possibilitar o cadastro de autores, categorias de livros, livros.
+Deve fazer diversas validações. Não aceita cadastros duplicados.
