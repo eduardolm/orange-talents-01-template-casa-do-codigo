@@ -29,6 +29,14 @@ public class AuthorDto {
     private LocalDateTime createdAt;
     private List<BookDetailDto> books;
 
+    public AuthorDto(@NotBlank(message = "O campo nome é obrigatório.") @Size(min = 3, max = 50) String name,
+                     @NotBlank(message = "O campo e-mail é obrigatório.") @Size(min = 11, max = 50) @Email String email,
+                     @NotBlank(message = "O campo descrição é obrigatório.") @Size(min = 5, max = 400) String description) {
+        this.name = name;
+        this.email = email;
+        this.description = description;
+    }
+
     public AuthorDto(@NotBlank(message = "O campo nome é obrigatório.")
                      @Size(min = 3, max = 50) String name,
                      @NotBlank(message = "O campo e-mail é obrigatório.")

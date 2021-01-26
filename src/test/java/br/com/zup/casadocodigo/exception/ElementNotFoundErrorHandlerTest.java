@@ -32,7 +32,8 @@ public class ElementNotFoundErrorHandlerTest {
         // Arrange
         NoSuchElementException noSuchElementException = new NoSuchElementException();
         noSuchElementException
-                .setStackTrace(new StackTraceElement[]{new StackTraceElement("Declaring Class", "Method Name", "foo.txt", 2)});
+                .setStackTrace(new StackTraceElement[]{new StackTraceElement("Declaring Class",
+                        "Method Name", "foo.txt", 2)});
 
         // Act and Assert
         List<String> errors = this.elementNotFoundErrorHandler.handleNoSuchElementErrors(noSuchElementException)

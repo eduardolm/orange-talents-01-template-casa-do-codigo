@@ -66,7 +66,6 @@ public class CustomerRequestDto {
     }
 
     public CustomerRequestDto(
-          Long id,
           @NotBlank(message = "E-mail é obrigatório.")
           @Size(min = 10, max = 50, message = "O e-mail deve ter entre 10 e 50 caracteres.")
           @Email(message = "Formato inválido.") String email,
@@ -86,7 +85,6 @@ public class CustomerRequestDto {
           @Size(min = 10, max = 20, message = "O telefone deve ter entre 10 e 20 caracteres.") String phone,
           @NotBlank(message = "É obrigatório informar o CEP.") String zip) {
 
-        this.id = id;
         this.email = email;
         this.firstName = firstName;
         this.lastName = lastName;

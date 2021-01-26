@@ -31,6 +31,7 @@ public class CustomerDetailDto {
                              String zip) {
 
         this.id = id;
+        this.email = email;
         this.firstName = firstName;
         this.lastName = lastName;
         this.document = document;

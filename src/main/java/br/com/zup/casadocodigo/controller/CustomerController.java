@@ -51,8 +51,9 @@ public class CustomerController {
 
     @GetMapping("{id}")
     public ResponseEntity<CustomerDetailDto> findById(@PathVariable() Long id) {
+        Customer teste = customerRepository.findById(id).get();
         CustomerDetailDto response = new CustomerDetailDto(customerRepository.findById(id).orElseThrow(() ->
-                new NoSuchElementException("Cliente nÃo encontrado.")));
+                new NoSuchElementException("Cliente não encontrado.")));
         return ResponseEntity.ok(response);
     }
 }

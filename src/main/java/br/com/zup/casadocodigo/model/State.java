@@ -17,17 +17,12 @@ public class State {
     @ManyToOne
     private Country country;
 
-    @OneToOne
-    private Customer customer;
-
     public State(String name, Country country) {
         this.name = name;
         this.country = country;
     }
 
-    public State() {
-
-    }
+    public State() { }
 
     public Long getId() {
         return id;
@@ -39,10 +34,6 @@ public class State {
 
     public Country getCountry() {
         return country;
-    }
-
-    public Customer getCustomer() {
-        return customer;
     }
 
     @Override
