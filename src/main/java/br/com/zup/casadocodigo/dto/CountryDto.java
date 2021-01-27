@@ -1,9 +1,7 @@
 package br.com.zup.casadocodigo.dto;
 
-import br.com.zup.casadocodigo.controller.request.CountryRequestDto;
 import br.com.zup.casadocodigo.model.Country;
 
-import javax.validation.constraints.NotBlank;
 import java.util.List;
 import java.util.stream.Collectors;
 

@@ -1,14 +1,11 @@
 package br.com.zup.casadocodigo.model;
 
-import br.com.zup.casadocodigo.dto.AuthorDto;
-
 import javax.persistence.*;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import java.util.StringJoiner;
-import java.util.stream.Collectors;
 
 @Entity
 @Table(name = "autores")
@@ -31,7 +28,6 @@ public class Author {
 
     @OneToMany(mappedBy = "author")
     private List<Book> books = new ArrayList<>();
-
 
     public Author(String name, String email, String description) {
         this.name = name;

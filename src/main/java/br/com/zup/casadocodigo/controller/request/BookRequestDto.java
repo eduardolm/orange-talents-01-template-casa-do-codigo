@@ -54,9 +54,9 @@ public class BookRequestDto {
                           @NotBlank(message = "Resumo é obrigatório.") @Size(min = 3, max = 500) String abstractText,
                           @NotBlank(message = "Título é obrigatório.") @Size(min = 3) String summary,
                           @NotNull(message = "O preço é obrigatório.")
-                   @DecimalMin(value = "20.0", message = "Preço mínimo: R$20.00.") BigDecimal price,
+                          @DecimalMin(value = "20.0", message = "Preço mínimo: R$20.00.") BigDecimal price,
                           @NotNull(message = "Número de páginas é obrigatório.")
-                   @Min(value = 100, message = "Número de páginas deve ser maior ou igual a 100") Integer pages,
+                          @Min(value = 100, message = "Número de páginas deve ser maior ou igual a 100") Integer pages,
                           @NotBlank(message = "ISBN é obrigatório.") String isbn,
                           @Future(message = "Data de publicação deve ser posterior ao dia atual.") LocalDate toBePublishedAt,
                           @NotBlank(message = "Categoria é obrigatória.") String categoryName,
@@ -73,7 +73,9 @@ public class BookRequestDto {
         this.authorName = authorName;
     }
 
-    public Book convertBookRequestToBook(CategoryRepository categoryRepository, AuthorRepository authorRepository) throws NoSuchElementException, BookConversionException {
+    public Book convertBookRequestToBook(CategoryRepository categoryRepository,
+                                         AuthorRepository authorRepository) throws NoSuchElementException,
+                                                                                   BookConversionException {
 
         Optional<Author> author = authorRepository.findAuthorByName(authorName);
         Optional<Category> category = categoryRepository.findCategoryByName(categoryName);
@@ -84,6 +86,5 @@ public class BookRequestDto {
         else {
             throw new BookConversionException(author, category);
         }
-
     }
 }
