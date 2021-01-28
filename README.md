@@ -1,7 +1,7 @@
 # Casa do Código - API
-![Version](img/version.svg)
-![License](img/license.svg)
-![Coverage](img/coverage.svg)
+![Version](src/main/resources/static/img/version.svg)
+![License](src/main/resources/static/img/license.svg)
+![Coverage](src/main/resources/static/img/coverage.svg)
 
 ## Objetivos
 Criar o backend para a plataforma da Casa do Código.
