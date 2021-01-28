@@ -1,8 +1,11 @@
 # Casa do Código - API
+![Version](img/version.svg)
+![License](img/license.svg)
+![Coverage](img/coverage.svg)
 
 ## Objetivos
 Criar o backend para a plataforma da Casa do Código.
-A API deve possibilitar o cadastro de autores, categorias de livros.
+Essa API deve possibilitar o cadastro de autores, categorias de livros, países, estados e cadastro de clientes da casa do código.
 
 O projeto apresenta diversas restrições, obrigando certos rumos a serem tomados.
 Cada classe de modelo pode ter apenas 2 setters
@@ -10,7 +13,7 @@ Deve fazer diversas validações.
 Não aceita cadastros duplicados.
 Classe service é dispensável ao projeto. Caso seja extremamente necessária, apenas uma classe service será permitida.
 
-## Enpoints and payloads
+## Endpoints & payloads
 ### Endpoints
 #### Autores
 **Ação** | **Endpoint** | **Método**
