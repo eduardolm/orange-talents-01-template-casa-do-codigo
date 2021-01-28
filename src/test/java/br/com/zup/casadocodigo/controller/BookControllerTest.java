@@ -1,8 +1,17 @@
 package br.com.zup.casadocodigo.controller;
 
+import br.com.zup.casadocodigo.controller.request.BookRequestDto;
+import br.com.zup.casadocodigo.dto.BookDto;
+import br.com.zup.casadocodigo.exception.BookConversionException;
 import br.com.zup.casadocodigo.model.Author;
+import br.com.zup.casadocodigo.model.Book;
+import br.com.zup.casadocodigo.model.Category;
 import br.com.zup.casadocodigo.repository.AuthorRepository;
+import br.com.zup.casadocodigo.repository.BookRepository;
+import br.com.zup.casadocodigo.repository.CategoryRepository;
 import br.com.zup.casadocodigo.utils.builder.AuthorBuilder;
+import br.com.zup.casadocodigo.utils.builder.BookBuilder;
+import br.com.zup.casadocodigo.utils.builder.BookRequestDtoBuilder;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -15,6 +24,8 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 
+import java.math.BigDecimal;
+import java.time.LocalDate;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -27,56 +38,53 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 @SpringBootTest
 @AutoConfigureMockMvc
-public class AuthorControllerTest {
-
+public class BookControllerTest {
     @Autowired
     private MockMvc mockMvc;
 
     @MockBean
-    private AuthorRepository repository;
+    private BookRepository repository;
+
+    @MockBean
+    private CategoryRepository categoryRepository;
+
+    @MockBean
+    private AuthorRepository authorRepository;
 
     @Autowired
     private ObjectMapper mapper;
 
     @Test
-    public void listAuthors() throws Exception {
+    public void listBooks() throws Exception {
         Author author = new AuthorBuilder()
                 .withName("Joshua Baker")
                 .withEmail("josh@email.com")
                 .withDescription("Test author")
                 .build();
 
+        Category category = new Category(" Terror");
+
+        Book book = new BookBuilder()
+                .withTitle("A vida de Pi")
+                .withAbstract("História fantástica sobre menino que, após um naufrágio, fica preso num bote...")
+                .withSummary("Markdown summary text")
+                .withPrice(new BigDecimal("125.54"))
+                .withPages(135).withIsbn("123654")
+                .withToBePublishedAt(LocalDate.of(2021, 10, 15))
+                .withCategory(category)
+                .withAuthor(author)
+                .build();
+
         mapper.configure(DeserializationFeature.USE_JAVA_ARRAY_FOR_JSON_ARRAY, true);
 
-        doReturn(Lists.newArrayList(author)).when(repository).findAll();
+        doReturn(Lists.newArrayList(book)).when(repository).findAll();
 
-        var response = mockMvc.perform(get("/api/v1/authors"))
+        var response = mockMvc.perform(get("/api/v1/books"))
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))
                 .andReturn().getResponse();
 
-        assertEquals("Joshua Baker", mapper
-                .readValue(response.getContentAsString(), new TypeReference<List<Author>>() {}).get(0).getName());
-        assertEquals("josh@email.com", mapper
-                .readValue(response.getContentAsString(), new TypeReference<List<Author>>() {}).get(0).getEmail());
-        assertEquals("Test author", mapper
-                .readValue(response.getContentAsString(), new TypeReference<List<Author>>() {}).get(0).getDescription());
-    }
-
-    @Test
-    public void shouldCreateAuthor() throws Exception {
-    Author author = new AuthorBuilder()
-            .withName("Joshua Baker")
-            .withEmail("josh@email.com")
-            .withDescription("Test author")
-            .build();
-
-    when(repository.save(author)).thenReturn(author);
-
-        mockMvc.perform(post("/api/v1/authors")
-                .content(mapper.writeValueAsString(author))
-                .contentType(MediaType.APPLICATION_JSON))
-                .andExpect(status().isOk());
+        assertEquals("A vida de Pi", mapper
+                .readValue(response.getContentAsString(), new TypeReference<List<Book>>() {}).get(0).getTitle());
     }
 }
-
