@@ -47,7 +47,7 @@ public class Country {
     }
 
     public CountryDto toCountryDto() {
-        return new CountryDto(name);
+        return new CountryDto(id, name);
     }
 
     @Override
