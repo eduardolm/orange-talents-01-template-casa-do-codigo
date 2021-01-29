@@ -18,7 +18,7 @@ public class CustomerConversionException extends Throwable {
         this.country = country;
         this.state = state;
         if (country.isEmpty()) errors.add(new FieldErrorOutputDto("country", "País não encontrado."));
-        if (state.isEmpty()) errors.add(new FieldErrorOutputDto("state", "Estado não encontrada."));
+        if (state.isEmpty()) errors.add(new FieldErrorOutputDto("state", "Estado não encontrado."));
     }
 
     public Optional<Country> getCountry() {

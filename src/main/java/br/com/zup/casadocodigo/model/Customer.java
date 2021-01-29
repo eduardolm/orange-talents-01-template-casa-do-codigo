@@ -68,7 +68,7 @@ public class Customer {
         this.complement = complement;
         this.city = city;
         this.country = country;
-        this.state = state;
+        this.state = !country.getStates().isEmpty() ? state : null;
         this.phone = phone;
         this.zip = zip;
     }
