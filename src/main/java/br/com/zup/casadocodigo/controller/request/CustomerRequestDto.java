@@ -172,6 +172,9 @@ public class CustomerRequestDto {
             return new Customer(email, firstName, lastName, document, address, complement, city, tempCountry.get(),
                     tempState.get(), phone, zip);
         }
+        else if (tempCountry.isPresent() && tempCountry.get().getStates().isEmpty() && tempCountry.get().getStates().isEmpty()) {
+            return new Customer(email, firstName, lastName, document, address, complement, city, tempCountry.get(), null, phone, zip);
+        }
         else {
             throw new CustomerConversionException(tempCountry, tempState);
         }
