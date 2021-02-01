@@ -75,7 +75,7 @@ public class CustomerRequestDto {
           @Size(min = 3, max = 50, message = "O sobrenome deve ter entre 3 e 50 caracteres.") String lastName,
           @NotBlank(message = "O documento é obrigatório.")
           @Size(min = 11, max = 14, message = "O documento deve ter 11 caracteres para CPF e 14 caracteres para CNPJ.")
-                  String document,
+          @CPFeCNPJ(message = "CPF / CNPJ inválido.") String document,
           @NotBlank(message = "O endereço é obrigatório.") String address,
           @NotBlank(message = "O complemento é obrigatório.") String complement,
           @NotBlank(message = "Obrigatório informar a cidade.") String city,
