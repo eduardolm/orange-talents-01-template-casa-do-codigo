@@ -1,17 +1,11 @@
 package br.com.zup.casadocodigo.controller;
 
-import br.com.zup.casadocodigo.controller.request.BookRequestDto;
-import br.com.zup.casadocodigo.dto.BookDto;
-import br.com.zup.casadocodigo.exception.BookConversionException;
 import br.com.zup.casadocodigo.model.Author;
 import br.com.zup.casadocodigo.model.Book;
 import br.com.zup.casadocodigo.model.Category;
-import br.com.zup.casadocodigo.repository.AuthorRepository;
 import br.com.zup.casadocodigo.repository.BookRepository;
-import br.com.zup.casadocodigo.repository.CategoryRepository;
 import br.com.zup.casadocodigo.utils.builder.AuthorBuilder;
 import br.com.zup.casadocodigo.utils.builder.BookBuilder;
-import br.com.zup.casadocodigo.utils.builder.BookRequestDtoBuilder;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -30,9 +24,7 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.doReturn;
-import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -44,12 +36,6 @@ public class BookControllerTest {
 
     @MockBean
     private BookRepository repository;
-
-    @MockBean
-    private CategoryRepository categoryRepository;
-
-    @MockBean
-    private AuthorRepository authorRepository;
 
     @Autowired
     private ObjectMapper mapper;
