@@ -2,9 +2,7 @@ package br.com.zup.casadocodigo.controller;
 
 import br.com.zup.casadocodigo.controller.request.BookRequestDto;
 import br.com.zup.casadocodigo.dto.BookDetailDto;
-import br.com.zup.casadocodigo.dto.BookDto;
 import br.com.zup.casadocodigo.exception.BookConversionException;
-import br.com.zup.casadocodigo.model.Book;
 import br.com.zup.casadocodigo.repository.AuthorRepository;
 import br.com.zup.casadocodigo.repository.BookRepository;
 import br.com.zup.casadocodigo.repository.CategoryRepository;
@@ -13,9 +11,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
-import java.util.List;
 import java.util.NoSuchElementException;
-import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/api/v1/books")
@@ -39,12 +35,6 @@ public class BookController {
                     categoryRepository, authorRepository))));
         }
         return ResponseEntity.badRequest().build();
-    }
-
-    @GetMapping
-    public ResponseEntity<List<BookDto>> findAll() {
-        List<Book> books = repository.findAll();
-        return ResponseEntity.ok(books.stream().map(BookDto::new).collect(Collectors.toList()));
     }
 
     @GetMapping("{id}")
