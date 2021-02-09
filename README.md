@@ -29,7 +29,6 @@ Inserir categoria | _/api/v1/categories_ | POST
 **Ação** | **Endpoint** | **Método**
 ---------- | ------------ | ----------
 Inserir livro | _/api/v1/books_ | POST
-Listar livros | _/api/v1/books_ | GET
 Listar livro por id | _/api/v1/books/{id}_ | GET
 
 #### Países
